@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Verificación Biométrica - Richard Face</title>
+    <!-- Material Symbols -->
+    <link href="/src/styles/icons.css" rel="stylesheet" />
+    <!-- Google Fonts: Poppins -->
+    <link href="/src/styles/fonts.css" rel="stylesheet" />
+
+    <!-- Tailwind CSS -->
+    <link href="/src/styles/main.css" rel="stylesheet" />
+    <script type="module" src="/src/js/layout.js"></script>
+    <script type="module" src="/src/js/autenticacion.js"></script>
+</head>
+
+<body
+    class="bg-background text-on-background min-h-screen flex flex-col md:flex-row antialiased overflow-x-hidden selection:bg-status-error selection:text-white">
+    <!-- Mobile Menu Backdrop -->
+    <div id="mobile-menu-backdrop" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden"></div>
+
+    <!-- Shared Sidebar -->
+    <nav id="mobile-menu"
+        class="transform -translate-x-full lg:translate-x-0 transition-transform duration-300 flex flex-col h-full w-72 left-0 top-0 fixed bg-surface-deep border-r border-outline-variant z-50">
+        <div class="px-lg flex items-center h-20 border-b border-outline-variant/30">
+            <h2 class="font-title-lg text-title-lg text-primary tracking-tight uppercase">RICHARD FACE</h2>
+        </div>
+        <div class="flex-1 overflow-y-auto pt-sm">
+            <a class="flex items-center gap-md bg-primary-container text-on-primary-container rounded-lg px-md py-sm mx-sm my-xs opacity-80 duration-200 scale-[0.98] shadow-sm"
+                href="/autenticacion-biometrica.html">
+                <span class="material-symbols-outlined"
+                    style="font-variation-settings: 'FILL' 1;">phonelink_setup</span>
+                <span class="font-label-md text-label-md">Scan</span>
+            </a>
+            <a class="flex items-center gap-md text-on-surface-variant px-md py-sm mx-sm my-xs hover:bg-surface-container-high transition-all rounded-lg"
+                href="/index.html">
+                <span class="material-symbols-outlined">dashboard</span>
+                <span class="font-label-md text-label-md">Dashboard</span>
+            </a>
+            <a class="flex items-center gap-md text-on-surface-variant px-md py-sm mx-sm my-xs hover:bg-surface-container-high transition-all rounded-lg"
+                href="/testing_masivo.html">
+                <span class="material-symbols-outlined">batch_prediction</span>
+                <span class="font-label-md text-label-md">Testing</span>
+            </a>
+        </div>
+        <div class="mt-auto p-lg border-t border-outline-variant/30 text-text-low font-caption text-caption">
+            SysVersion: 0.0.9
+        </div>
+    </nav>
+
+    <!-- Main Content Wrapper -->
+    <main class="flex-1 lg:ml-72 flex flex-col min-h-screen relative">
+        <!-- Shared Header -->
+        <header
+            class="flex justify-between items-center w-full px-lg h-20 z-40 bg-surface border-b border-outline-variant sticky top-0 shadow-sm">
+            <div class="flex items-center gap-sm">
+                <button id="btn-mobile-menu"
+                    class="lg:hidden p-xs text-text-high hover:bg-surface-variant/50 rounded transition-colors flex items-center justify-center">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+                <span class="material-symbols-outlined text-primary text-headline-md"
+                    style="font-variation-settings: 'FILL' 1;">shield</span>
+                <h1 class="hidden sm:block font-headline-sm text-headline-sm font-bold text-primary tracking-tight">
+                    Reconocimiento Facial</h1>
+            </div>
+        </header>
+        <!-- Biometric Canvas -->
+        <div
+            class="flex-1 flex flex-col items-center justify-center px-md py-lg md:px-xl w-full max-w-container-max mx-auto relative z-10 md:py-xxl">
+            <!-- Page Header -->
+            <div class="text-center mb-xl w-full">
+                <h2
+                    class="font-headline-md text-[32px] md:font-headline-lg md:text-headline-lg text-text-high mb-xs leading-tight">
+                    Identidad</h2>
+                <p class="font-body-md text-body-md text-text-low">Alinee su rostro en el marco para verificación.</p>
+            </div>
+            <!-- Dynamic Status Banner (Hidden by default, used for 'Sin rostro' warning) -->
+            <div class="hidden w-full max-w-sm bg-status-warning bg-opacity-10 border border-status-warning rounded-lg p-sm mb-md flex items-center gap-sm"
+                id="status-banner">
+                <span class="material-symbols-outlined text-status-warning">warning</span>
+                <span class="font-label-md text-label-md text-status-warning uppercase tracking-wide">Rostro no
+                    detectado</span>
+            </div>
+            <!-- Camera Preview Container -->
+            <div
+                class="relative w-full max-w-sm aspect-[3/4] bg-surface-elevated rounded-xl overflow-hidden shadow-2xl glow-border mb-lg md:mb-xl group">
+                <!-- Fallback Image / Placeholder while camera loads -->
+                <img id="camera-placeholder" alt="Camera Placeholder"
+                    class="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-luminosity"
+                    data-alt="A dark, high-tech abstract background featuring digital grid lines and subtle red glowing nodes, representing a biometric scanning environment. The aesthetic is corporate technicism, highly polished and secure, with deep obsidian tones and sharp contrast."
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNKWcP-e2N-KYkiJLNlYGVuv0veru4c-Nt2IDHs_-t7aqokFFcnsHKLvcKXgduBSce30Sm1yr4-Cf1SgZotT2IsRTXmRv3i6tb3dOd8SLYVs5xbXc2AcKz3k75GJhqTwLQhfShMt9_wXpjAhBSzscu0D5DRmLAZP1OpJMJ14-nRgQZX8vL-aNuteHKR6Z1kV5jbKuGpMJUUfB8u5SmoYYzk-LYWlD7bnh0CRqj8hj93hxnPsdM8efVwee0aCkwVvoDyAm4RDVRffk" />
+                <!-- Video Element (Simulated for this mockup) -->
+                <div id="video-fallback"
+                    class="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center transition-opacity">
+                    <span class="material-symbols-outlined text-text-low text-4xl opacity-50">videocam</span>
+                </div>
+                <!-- Elemento Video real oculto hasta inicializar -->
+                <video id="webcam-video" autoplay playsinline
+                    class="absolute inset-0 w-full h-full object-cover hidden"></video>
+                <!-- Elemento Imagen para preview de subidas manuales -->
+                <img id="uploaded-preview" class="absolute inset-0 w-full h-full object-cover hidden z-10" />
+                <!-- Elemento Canvas (Oculto) para extraer blobs -->
+                <canvas id="webcam-canvas" class="hidden"></canvas>
+                <!-- HUD Overlays -->
+                <div class="absolute inset-0 pointer-events-none p-md flex flex-col justify-between">
+                    <!-- Top Corners -->
+                    <div class="flex justify-between w-full">
+                        <div class="w-8 h-8 border-t-2 border-l-2 border-status-error opacity-70"></div>
+                        <div class="w-8 h-8 border-t-2 border-r-2 border-status-error opacity-70"></div>
+                    </div>
+                    <!-- Center Reticle -->
+                    <div class="flex-1 flex items-center justify-center relative">
+                        <div class="w-48 h-64 border border-white/20 rounded-[50%] relative">
+                            <!-- Scanning Laser Line -->
+                            <div class="scan-effect overflow-hidden rounded-[50%]"></div>
+                        </div>
+                    </div>
+                    <!-- Bottom Corners -->
+                    <div class="flex justify-between w-full">
+                        <div class="w-8 h-8 border-b-2 border-l-2 border-status-error opacity-70"></div>
+                        <div class="w-8 h-8 border-b-2 border-r-2 border-status-error opacity-70"></div>
+                    </div>
+                </div>
+                <!-- State Overlays (Toggled via JS) -->
+                <div class="absolute inset-0 hidden flex-col justify-end z-50 transition-opacity duration-300"
+                    id="overlay-success">
+                    <div
+                        class="w-full bg-surface-deep/95 border-t-4 border-status-success px-md py-lg flex flex-col items-center backdrop-blur-xl shadow-[0_-20px_40px_rgba(0,0,0,0.6)] animate-slide-up">
+                        <div class="flex items-center gap-sm mb-sm">
+                            <span
+                                class="material-symbols-outlined text-status-success drop-shadow-[0_0_15px_rgba(52,199,89,0.6)]"
+                                style="font-size: 40px;">check_circle</span>
+                            <h3 class="font-title-lg text-title-lg text-status-success m-0 tracking-widest uppercase">
+                                Verificado</h3>
+                        </div>
+                        <div id="metrics-success"
+                            class="font-mono text-sm text-text-high bg-black/60 px-md py-sm rounded-md border border-status-success/30 w-full max-w-[250px] text-center leading-relaxed tracking-wider">
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute inset-0 hidden flex-col justify-end z-50 transition-opacity duration-300"
+                    id="overlay-error">
+                    <div
+                        class="w-full bg-surface-deep/95 border-t-4 border-status-error px-md py-lg flex flex-col items-center backdrop-blur-xl shadow-[0_-20px_40px_rgba(0,0,0,0.6)] animate-slide-up">
+                        <div class="flex items-center gap-sm mb-sm">
+                            <span
+                                class="material-symbols-outlined text-status-error drop-shadow-[0_0_15px_rgba(255,59,59,0.6)]"
+                                style="font-size: 40px;">cancel</span>
+                            <h3 class="font-title-lg text-title-lg text-status-error m-0 tracking-widest uppercase">
+                                Denegado</h3>
+                        </div>
+                        <div id="metrics-error"
+                            class="font-mono text-sm text-text-high bg-black/60 px-md py-sm rounded-md border border-status-error/30 w-full max-w-[250px] text-center leading-relaxed tracking-wider">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Actions -->
+            <div class="w-full max-w-sm flex flex-col gap-md">
+                <!-- Primary Action -->
+                <button id="btnVerificar"
+                    class="w-full h-[56px] bg-status-error hover:bg-inverse-primary text-text-high font-title-lg text-title-lg rounded-lg transition-all duration-300 flex items-center justify-center gap-sm btn-pulse">
+                    <span class="material-symbols-outlined">fingerprint</span>
+                    Verificar Identidad
+                </button>
+                <!-- Secondary Alternative -->
+                <button id="btnSubir"
+                    class="w-full h-[56px] border border-white hover:bg-white/5 text-text-high font-label-md text-label-md rounded-lg transition-all duration-300 flex items-center justify-center gap-sm">
+                    <span class="material-symbols-outlined">upload_file</span>
+                    Subir imagen
+                </button>
+                <input type="file" id="inputFileAuth" class="hidden" accept="image/*" />
+            </div>
+            <!-- Security Footer Note -->
+            <div class="mt-lg flex items-center gap-xs opacity-50">
+                <span class="material-symbols-outlined text-sm">lock</span>
+                <span class="font-caption text-caption text-text-medium uppercase tracking-widest">End-to-End
+                    Encrypted</span>
+            </div>
+        </div>
+        <!-- Ambient Background Glow -->
+        <div
+            class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[800px] h-[300px] sm:h-[400px] bg-status-error/5 rounded-[50%] blur-[100px] pointer-events-none -z-10">
+        </div>
+    </main>
+
+</body>
+
+</html>

@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    min-height: max(884px, 100dvh);
+  }
+}
+
+@layer components {
+  /* Dashboard specific */
+  .glass-card {
+    @apply bg-surface-deep border border-white/5 relative overflow-hidden rounded-[10px];
+  }
+  
+  .glass-card::before {
+    content: '';
+    @apply absolute inset-0 pointer-events-none;
+    background: radial-gradient(circle at top right, rgba(255,59,59,0.05), transparent 60%);
+  }
+
+  .cyber-button-primary {
+    @apply bg-status-error h-[56px];
+    box-shadow: 0 0 20px rgba(255, 59, 59, 0.25);
+  }
+
+  .cyber-button-secondary {
+    @apply bg-transparent border border-white h-[56px] transition-all duration-200;
+  }
+  
+  .cyber-button-secondary:hover {
+    @apply bg-white/10;
+  }
+
+  /* Auth specific */
+  .glow-border {
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  }
+
+  .btn-pulse {
+    animation: pulse-shadow 2s infinite;
+  }
+
+  /* Testing Masivo specific */
+  .glow-button {
+    box-shadow: 0 0 20px rgba(255, 59, 59, 0.25);
+    @apply transition-all duration-300;
+  }
+  .glow-button:hover {
+    box-shadow: 0 0 30px rgba(255, 59, 59, 0.4);
+    @apply -translate-y-[2px];
+  }
+  .bento-card {
+    @apply bg-surface-deep border border-white/5 rounded-[10px] p-[32px] transition-all duration-300;
+  }
+  .bento-card:hover {
+    @apply -translate-y-[8px] border-white/10;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.5);
+  }
+  .progress-bar-stripes {
+    background-image: linear-gradient(45deg, rgba(255,255,255,.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.15) 50%, rgba(255,255,255,.15) 75%, transparent 75%, transparent);
+    background-size: 1rem 1rem;
+    animation: progress-animation 1s linear infinite;
+  }
+  .pie-chart {
+    background: conic-gradient(
+        #34C759 0% 94.2%,
+        #FF3B3B 94.2% 100%
+    );
+    @apply rounded-full relative;
+  }
+  .pie-chart::after {
+    content: "";
+    @apply absolute inset-[8px] bg-surface-deep rounded-full;
+  }
+}
+
+@layer utilities {
+  @keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+  }
+  .scan-effect {
+    background: linear-gradient(to bottom, rgba(255,59,59,0) 0%, rgba(255,59,59,0.2) 50%, rgba(255,59,59,0) 100%);
+    animation: scanline 2.5s infinite linear;
+    @apply pointer-events-none;
+  }
+
+  @keyframes pulse-shadow {
+    0% { box-shadow: 0 0 0 0 rgba(255, 59, 59, 0.25); }
+    70% { box-shadow: 0 0 0 20px rgba(255, 59, 59, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 59, 59, 0); }
+  }
+
+  @keyframes progress-animation {
+    from { background-position: 1rem 0; }
+    to { background-position: 0 0; }
+  }
+
+  @keyframes slide-up {
+    0% { transform: translateY(100%); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+  .animate-slide-up {
+    animation: slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+}
+
+/* Custom Scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #131313;
+}
+::-webkit-scrollbar-thumb {
+  background: #353534;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #5d3f3c;
+}

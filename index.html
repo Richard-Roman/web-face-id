@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Security Monitoring Dashboard</title>
+    <!-- Material Symbols -->
+    <link href="/src/styles/icons.css" rel="stylesheet" />
+    <!-- Google Fonts: Poppins -->
+    <link href="/src/styles/fonts.css" rel="stylesheet" />
+
+    <!-- Tailwind CSS -->
+    <link href="/src/styles/main.css" rel="stylesheet" />
+    <script type="module" src="/src/js/layout.js"></script>
+    <script type="module" src="/src/js/dashboard.js"></script>
+</head>
+
+<body
+    class="bg-background text-on-background min-h-screen flex flex-col md:flex-row antialiased overflow-x-hidden selection:bg-status-error selection:text-white">
+    <!-- Mobile Menu Backdrop -->
+    <div id="mobile-menu-backdrop" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden"></div>
+
+    <!-- Shared Sidebar -->
+    <nav id="mobile-menu"
+        class="transform -translate-x-full lg:translate-x-0 transition-transform duration-300 flex flex-col h-full w-72 left-0 top-0 fixed bg-surface-deep border-r border-outline-variant z-50">
+        <div class="px-lg flex items-center h-20 border-b border-outline-variant/30">
+            <h2 class="font-title-lg text-title-lg text-primary tracking-tight uppercase">RICHARD FACE</h2>
+        </div>
+        <div class="flex-1 overflow-y-auto pt-sm">
+            <a class="flex items-center gap-md text-on-surface-variant px-md py-sm mx-sm my-xs hover:bg-surface-container-high transition-all rounded-lg"
+                href="/autenticacion-biometrica.html">
+                <span class="material-symbols-outlined">phonelink_setup</span>
+                <span class="font-label-md text-label-md">Scan</span>
+            </a>
+            <a class="flex items-center gap-md bg-primary-container text-on-primary-container rounded-lg px-md py-sm mx-sm my-xs opacity-80 duration-200 scale-[0.98] shadow-sm"
+                href="/index.html">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+                <span class="font-label-md text-label-md">Dashboard</span>
+            </a>
+            <a class="flex items-center gap-md text-on-surface-variant px-md py-sm mx-sm my-xs hover:bg-surface-container-high transition-all rounded-lg"
+                href="/testing_masivo.html">
+                <span class="material-symbols-outlined">batch_prediction</span>
+                <span class="font-label-md text-label-md">Testing</span>
+            </a>
+        </div>
+        <div class="mt-auto p-lg border-t border-outline-variant/30 text-text-low font-caption text-caption">
+            SysVersion: 0.0.9
+        </div>
+    </nav>
+
+    <!-- Main Content Wrapper -->
+    <main class="flex-1 lg:ml-72 flex flex-col min-h-screen relative">
+        <!-- Shared Header -->
+        <header
+            class="flex justify-between items-center w-full px-lg h-20 z-40 bg-surface border-b border-outline-variant sticky top-0 shadow-sm">
+            <div class="flex items-center gap-sm">
+                <button id="btn-mobile-menu"
+                    class="lg:hidden p-xs text-text-high hover:bg-surface-variant/50 rounded transition-colors flex items-center justify-center">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+                <span class="material-symbols-outlined text-primary text-headline-md"
+                    style="font-variation-settings: 'FILL' 1;">shield</span>
+                <h1 class="hidden sm:block font-headline-sm text-headline-sm font-bold text-primary tracking-tight">
+                    Reconocimiento Facial</h1>
+            </div>
+        </header>
+
+        <!-- Main Content Canvas -->
+        <div class="flex-1 pt-lg px-md md:px-xl pb-xl w-full max-w-[1600px] mx-auto z-10">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-xl gap-md">
+                <div>
+                    <h2
+                        class="font-headline-md text-[32px] md:font-headline-lg md:text-headline-lg text-text-high leading-tight">
+                        Monitoreo</h2>
+                    <p class="font-body-md md:font-body-lg text-body-md md:text-body-lg text-text-medium mt-xs">Vista
+                        general del sistema biométrico en
+                        tiempo real.</p>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-sm w-full md:w-auto">
+                    <button id="btn-refresh-top"
+                        class="cyber-button-secondary rounded flex items-center justify-center gap-sm px-lg text-text-high font-label-md text-label-md w-full sm:w-auto uppercase tracking-wide">
+                        <span class="material-symbols-outlined text-sm">refresh</span>
+                        Actualizar
+                    </button>
+                    <button id="btn-clear-top"
+                        class="cyber-button-primary rounded flex items-center justify-center gap-sm px-lg text-text-high font-label-md text-label-md w-full sm:w-auto uppercase tracking-wide transition-transform hover:scale-[1.02]">
+                        <span class="material-symbols-outlined text-sm">delete_sweep</span>
+                        Limpiar Historial
+                    </button>
+                </div>
+            </div>
+            <!-- Bento Grid: Stats Summary -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-md mb-xl">
+                <!-- Card 1: Status -->
+                <div
+                    class="glass-card rounded-[10px] p-[24px] md:p-[32px] hover:-translate-y-[8px] transition-transform duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                    <div class="flex justify-between items-start mb-md">
+                        <span
+                            class="text-text-medium font-label-md text-label-md uppercase tracking-wider">Estado</span>
+                        <span class="material-symbols-outlined text-status-success">dns</span>
+                    </div>
+                    <div class="flex items-center gap-sm">
+                        <div class="w-3 h-3 rounded-full bg-status-success animate-pulse shadow-[0_0_10px_#34C759]">
+                        </div>
+                        <span id="stat-status" class="font-headline-sm text-headline-sm text-text-high">Online</span>
+                    </div>
+                </div>
+                <!-- Card 2: Security Threshold -->
+                <div
+                    class="glass-card rounded-[10px] p-[24px] md:p-[32px] hover:-translate-y-[8px] transition-transform duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                    <div class="flex justify-between items-start mb-md">
+                        <span
+                            class="text-text-medium font-label-md text-label-md uppercase tracking-wider">Umbral</span>
+                        <span class="material-symbols-outlined text-status-warning">policy</span>
+                    </div>
+                    <div class="font-headline-sm text-headline-sm text-text-high">
+                        <span id="stat-umbral">--</span><span class="text-text-low text-title-lg"></span>
+                    </div>
+                    <div class="w-full bg-surface-container-high h-1 rounded-full mt-sm overflow-hidden">
+                        <div id="stat-umbral-bar" class="bg-status-warning h-full w-[0%] transition-all duration-1000">
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 3: Total Encodings -->
+                <div
+                    class="glass-card rounded-[10px] p-[24px] md:p-[32px] hover:-translate-y-[8px] transition-transform duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                    <div class="flex justify-between items-start mb-md">
+                        <span
+                            class="text-text-medium font-label-md text-label-md uppercase tracking-wider">Encodings</span>
+                        <span class="material-symbols-outlined text-primary">data_object</span>
+                    </div>
+                    <div id="stat-encodings" class="font-headline-sm text-headline-sm text-text-high">
+                        ---
+                    </div>
+                </div>
+                <!-- Card 4: Model Health -->
+                <div
+                    class="glass-card rounded-[10px] p-[24px] md:p-[32px] hover:-translate-y-[8px] transition-transform duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                    <div class="flex justify-between items-start mb-md">
+                        <span
+                            class="text-text-medium font-label-md text-label-md uppercase tracking-wider">Recursos</span>
+                        <span class="material-symbols-outlined text-status-cyan">memory</span>
+                    </div>
+                    <div id="stat-health"
+                        class="font-headline-sm text-headline-sm text-status-cyan drop-shadow-[0_0_8px_rgba(0,229,255,0.4)]">
+                        -- MB
+                    </div>
+                    <div id="stat-uptime" class="text-text-low font-caption text-caption mt-xs">
+                        Uptime: --
+                    </div>
+                </div>
+            </div>
+            <!-- Data Table Section -->
+            <div class="glass-card rounded-[10px] shadow-[0_10px_40px_rgba(0,0,0,0.6)]">
+                <div class="p-lg border-b border-outline-variant/30 flex justify-between items-center">
+                    <h3 class="font-title-lg text-title-lg text-text-high flex items-center gap-sm">
+                        <span class="material-symbols-outlined text-primary">manage_search</span>
+                        Auditoría de Accesos
+                    </h3>
+                </div>
+                <div class="w-full overflow-x-auto">
+                    <table class="w-full text-left border-collapse min-w-[600px]">
+                        <thead>
+                            <tr class="bg-surface-container-low/50">
+                                <th
+                                    class="p-md font-label-md text-label-md text-text-medium uppercase tracking-wider border-b border-outline-variant/30">
+                                    Timestamp</th>
+                                <th
+                                    class="p-md font-label-md text-label-md text-text-medium uppercase tracking-wider border-b border-outline-variant/30">
+                                    Archivo / ID</th>
+                                <th
+                                    class="p-md font-label-md text-label-md text-text-medium uppercase tracking-wider border-b border-outline-variant/30">
+                                    Similitud</th>
+                                <th
+                                    class="p-md font-label-md text-label-md text-text-medium uppercase tracking-wider border-b border-outline-variant/30">
+                                    Distancia (L2)</th>
+                                <th
+                                    class="p-md font-label-md text-label-md text-text-medium uppercase tracking-wider border-b border-outline-variant/30 text-right">
+                                    Resultado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-table" class="font-body-md text-body-md text-text-high">
+                            <!-- Filas dinámicas irán aquí -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="p-md border-t border-outline-variant/30 flex justify-between text-text-low">
+                    <button id="btn-refresh"
+                        class="font-label-md text-label-md hover:text-text-high transition-colors flex items-center gap-xs">
+                        Actualizar Registros <span class="material-symbols-outlined text-sm">refresh</span>
+                    </button>
+                    <button id="btn-clear"
+                        class="font-label-md text-label-md hover:text-status-error transition-colors flex items-center gap-xs">
+                        Limpiar Historial <span class="material-symbols-outlined text-sm">delete</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

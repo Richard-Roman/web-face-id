@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Testeo Masivo - Richard Face</title>
+    <!-- Material Symbols -->
+    <link href="/src/styles/icons.css" rel="stylesheet" />
+    <!-- Google Fonts: Poppins -->
+    <link href="/src/styles/fonts.css" rel="stylesheet" />
+
+    <link href="/src/styles/main.css" rel="stylesheet" />
+    <script type="module" src="/src/js/layout.js"></script>
+    <script type="module" src="/src/js/testing_masivo.js"></script>
+</head>
+
+<body
+    class="bg-background text-on-surface font-body-md h-screen overflow-hidden flex selection:bg-primary-container selection:text-on-primary-container">
+    <!-- Mobile Menu Backdrop -->
+    <div id="mobile-menu-backdrop" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden"></div>
+
+    <!-- Shared Sidebar -->
+    <nav id="mobile-menu"
+        class="transform -translate-x-full lg:translate-x-0 transition-transform duration-300 flex flex-col h-full w-72 left-0 top-0 fixed bg-surface-deep border-r border-outline-variant z-50">
+        <div class="px-lg flex items-center h-20 border-b border-outline-variant/30">
+            <h2 class="font-title-lg text-title-lg text-primary tracking-tight uppercase">RICHARD FACE</h2>
+        </div>
+        <div class="flex-1 overflow-y-auto pt-sm">
+            <a class="flex items-center gap-md text-on-surface-variant px-md py-sm mx-sm my-xs hover:bg-surface-container-high transition-all rounded-lg"
+                href="/autenticacion-biometrica.html">
+                <span class="material-symbols-outlined">phonelink_setup</span>
+                <span class="font-label-md text-label-md">Scan</span>
+            </a>
+            <a class="flex items-center gap-md text-on-surface-variant px-md py-sm mx-sm my-xs hover:bg-surface-container-high transition-all rounded-lg"
+                href="/index.html">
+                <span class="material-symbols-outlined">dashboard</span>
+                <span class="font-label-md text-label-md">Dashboard</span>
+            </a>
+            <a class="flex items-center gap-md bg-primary-container text-on-primary-container rounded-lg px-md py-sm mx-sm my-xs opacity-80 duration-200 scale-[0.98] shadow-sm"
+                href="/testing_masivo.html">
+                <span class="material-symbols-outlined"
+                    style="font-variation-settings: 'FILL' 1;">batch_prediction</span>
+                <span class="font-label-md text-label-md">Testing</span>
+            </a>
+        </div>
+        <div class="mt-auto p-lg border-t border-outline-variant/30 text-text-low font-caption text-caption">
+            SysVersion: 0.0.9
+        </div>
+    </nav>
+
+    <!-- Main Content Wrapper -->
+    <main class="flex-1 lg:ml-72 flex flex-col min-h-screen relative">
+        <!-- Shared Header -->
+        <header
+            class="flex justify-between items-center w-full px-lg h-20 z-40 bg-surface border-b border-outline-variant sticky top-0 shadow-sm">
+            <div class="flex items-center gap-sm">
+                <button id="btn-mobile-menu"
+                    class="lg:hidden p-xs text-text-high hover:bg-surface-variant/50 rounded transition-colors flex items-center justify-center">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+                <span class="material-symbols-outlined text-primary text-headline-md"
+                    style="font-variation-settings: 'FILL' 1;">shield</span>
+                <h1 class="hidden sm:block font-headline-sm text-headline-sm font-bold text-primary tracking-tight">
+                    Reconocimiento Facial</h1>
+            </div>
+        </header>
+        <!-- Canvas -->
+        <div class="flex-1 overflow-y-auto p-md lg:p-xl pt-lg">
+            <div class="max-w-container-max mx-auto space-y-xl">
+                <!-- Page Header -->
+                <div class="space-y-sm">
+                    <h1 class="font-headline-md text-[32px] leading-tight md:text-headline-md text-text-high">
+                        Herramienta de Testing Masivo (QA)</h1>
+                    <p class="font-body-md md:font-body-lg text-body-md md:text-body-lg text-text-medium">Evaluación en
+                        bloque.</p>
+                </div>
+                <!-- Input Section -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+                    <!-- Drag & Drop Zone -->
+                    <div
+                        class="lg:col-span-2 bento-card relative overflow-hidden group cursor-pointer border-2 border-dashed border-outline-variant hover:border-status-error transition-colors">
+                        <input class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" id="fileInput"
+                            multiple="" type="file" />
+                        <div
+                            class="flex flex-col items-center justify-center h-4xl text-center space-y-md pointer-events-none">
+                            <span
+                                class="material-symbols-outlined text-4xl text-status-error opacity-70 group-hover:opacity-100 transition-opacity">cloud_upload</span>
+                            <div class="px-md">
+                                <p class="font-title-md md:font-title-lg text-title-md md:text-title-lg text-text-high">
+                                    Arrastra imágenes biométricas aquí
+                                </p>
+                                <p
+                                    class="font-label-sm md:font-label-md text-label-sm md:text-label-md text-text-medium mt-sm">
+                                    o haz clic para explorar.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Action Area -->
+                    <div class="bento-card flex flex-col justify-between">
+                        <div class="space-y-md">
+                            <h3 class="font-title-lg text-title-lg text-text-high">Control de Ejecución</h3>
+                            <div
+                                class="flex justify-between items-center bg-surface-container-low p-sm rounded-DEFAULT border border-outline-variant">
+                                <span class="font-label-md text-text-medium">Imágenes en cola:</span>
+                                <span class="font-title-lg text-text-high" id="queueCount">0</span>
+                            </div>
+                        </div>
+                        <div class="mt-xl space-y-md">
+                            <button
+                                class="w-full bg-status-error text-text-high h-[56px] rounded-lg font-title-lg text-title-lg glow-button flex items-center justify-center gap-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                                id="executeBtn">
+                                <span class="material-symbols-outlined">play_arrow</span>
+                                Ejecutar Evaluación
+                            </button>
+                            <!-- Progress Bar Container (Hidden by default) -->
+                            <div class="hidden space-y-sm" id="progressContainer">
+                                <div class="flex justify-between font-label-md text-label-md">
+                                    <span class="text-status-cyan">Procesando...</span>
+                                    <span class="text-text-high" id="progressText">0%</span>
+                                </div>
+                                <div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+                                    <div class="h-full bg-status-cyan progress-bar-stripes transition-all duration-300 ease-out"
+                                        id="progressBar" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Results Section (Initially obscured/empty state, populated after "run") -->
+                <div class="opacity-50 pointer-events-none transition-opacity duration-500" id="resultsSection">
+                    <h2 class="font-headline-sm text-headline-sm text-text-high mb-lg">Resultados de Evaluación</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+                        <!-- Rate Card -->
+                        <div class="bento-card flex flex-col items-center justify-center text-center">
+                            <span
+                                class="font-label-md text-label-md text-text-medium uppercase tracking-wider mb-sm">Tasa
+                                de Aceptación</span>
+                            <div class="relative">
+                                <span id="res-rate"
+                                    class="font-headline-xl text-headline-xl text-status-success filter drop-shadow-[0_0_15px_rgba(52,199,89,0.3)]">--%</span>
+                            </div>
+                            <div id="res-status-badge"
+                                class="mt-md font-label-md text-label-md px-sm py-xs rounded uppercase flex items-center gap-xs bg-status-success/10 text-status-success">
+                                <span class="material-symbols-outlined text-[16px]">check_circle</span>
+                                <span>Óptimo</span>
+                            </div>
+                        </div>
+                        <!-- Chart Card -->
+                        <div class="bento-card flex flex-col items-center justify-center">
+                            <span
+                                class="font-label-md text-label-md text-text-medium uppercase tracking-wider mb-lg">Distribución</span>
+                            <div id="res-pie-chart" class="w-3xl h-3xl pie-chart flex items-center justify-center">
+                                <span class="material-symbols-outlined text-text-high opacity-50 z-10">analytics</span>
+                            </div>
+                            <div class="flex gap-md mt-lg font-label-md text-label-md">
+                                <div class="flex items-center gap-xs"><span
+                                        class="w-3 h-3 rounded-full bg-status-success"></span><span
+                                        class="text-text-medium">Aceptados</span></div>
+                                <div class="flex items-center gap-xs"><span
+                                        class="w-3 h-3 rounded-full bg-status-error"></span><span
+                                        class="text-text-medium">Rechazados</span></div>
+                            </div>
+                        </div>
+                        <!-- Summary Card -->
+                        <div class="bento-card flex flex-col justify-center space-y-md">
+                            <span
+                                class="font-label-md text-label-md text-text-medium uppercase tracking-wider mb-sm border-b border-outline-variant pb-sm">Resumen
+                                Textual</span>
+                            <div class="flex justify-between items-center">
+                                <span class="font-body-md text-text-medium">Total Procesado</span>
+                                <span id="res-total" class="font-title-lg text-text-high">--</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="font-body-md text-text-medium">Coincidencia Positiva</span>
+                                <span id="res-success" class="font-title-lg text-status-success">--</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="font-body-md text-text-medium">Falsos Negativos / Errores</span>
+                                <span id="res-error" class="font-title-lg text-status-error">--</span>
+                            </div>
+                            <div class="pt-sm mt-sm border-t border-outline-variant">
+                                <span id="res-time-text" class="font-caption text-caption text-text-low">--</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Detailed Results Table -->
+                    <div class="md:col-span-3 bento-card mt-lg hidden" id="detailed-results-card">
+                        <div class="flex items-center gap-xs mb-md border-b border-outline-variant pb-sm">
+                            <span class="material-symbols-outlined text-text-medium">list_alt</span>
+                            <h3 class="font-title-lg text-text-high">Detalle por Imagen</h3>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr
+                                        class="font-label-md text-text-medium uppercase tracking-wider border-b border-outline-variant/50">
+                                        <th class="py-sm px-md font-medium">Archivo</th>
+                                        <th class="py-sm px-md font-medium">Similitud</th>
+                                        <th class="py-sm px-md font-medium">Distancia</th>
+                                        <th class="py-sm px-md font-medium text-center">Resultado</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="detailed-results-body"
+                                    class="font-body-md text-text-high divide-y divide-outline-variant/30">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+
+</html>
