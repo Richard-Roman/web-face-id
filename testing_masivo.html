@@ -51,7 +51,7 @@
     </nav>
 
     <!-- Main Content Wrapper -->
-    <main class="flex-1 lg:ml-72 flex flex-col min-h-screen relative overflow-x-hidden">
+    <main class="flex-1 lg:ml-72 flex flex-col min-h-screen relative">
         <!-- Shared Header -->
         <header
             class="flex justify-between items-center w-full px-lg h-20 z-40 bg-surface border-b border-outline-variant sticky top-0 shadow-sm">
@@ -67,7 +67,7 @@
             </div>
         </header>
         <!-- Canvas -->
-        <div class="flex-1 overflow-y-auto overflow-x-hidden p-md lg:p-xl pt-lg">
+        <div class="flex-1 overflow-y-auto p-md lg:p-xl pt-lg pb-xl">
             <div class="w-full max-w-[1200px] mx-auto space-y-xl">
                 <!-- Page Header -->
                 <div class="space-y-sm">
@@ -185,29 +185,32 @@
                             </div>
                         </div>
                     </div>
-                        <!-- Detailed Results Table -->
-                        <div class="col-span-1 md:col-span-3 bg-surface-deep border border-white/5 rounded-[10px] hidden min-w-0" id="detailed-results-card">
-                            <div class="flex items-center gap-xs p-md md:p-lg border-b border-outline-variant pb-sm">
-                                <span class="material-symbols-outlined text-text-medium">list_alt</span>
-                                <h3 class="font-title-lg text-text-high">Detalle por Imagen</h3>
-                            </div>
-                            <div class="overflow-x-auto w-full">
-                                <table class="w-full text-left border-collapse min-w-[600px]">
-                                    <thead>
-                                        <tr class="font-label-md text-text-medium uppercase tracking-wider border-b border-outline-variant/50">
-                                            <th class="py-sm px-xs md:px-md font-medium whitespace-nowrap">Archivo</th>
-                                            <th class="py-sm px-xs md:px-md font-medium whitespace-nowrap">Similitud</th>
-                                            <th class="py-sm px-xs md:px-md font-medium whitespace-nowrap">Distancia</th>
-                                            <th class="py-sm px-xs md:px-md font-medium text-center whitespace-nowrap">Resultado</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="detailed-results-body"
-                                        class="font-body-md text-text-high divide-y divide-outline-variant/30">
-                                    </tbody>
-                                </table>
-                            </div>
+                    <!-- Detailed Results Table -->
+                    <div class="col-span-1 md:col-span-3 bg-surface-deep border border-white/5 rounded-[10px] hidden min-w-0 my-8"
+                        id="detailed-results-card">
+                        <div class="flex items-center gap-xs p-md md:p-lg border-b border-outline-variant pb-sm">
+                            <span class="material-symbols-outlined text-text-medium">list_alt</span>
+                            <h3 class="font-title-lg text-text-high">Detalle por Imagen</h3>
+                        </div>
+                        <div class="overflow-x-auto w-full">
+                            <table class="w-full text-left border-collapse min-w-[600px]">
+                                <thead>
+                                    <tr
+                                        class="font-label-md text-text-medium uppercase tracking-wider border-b border-outline-variant/50">
+                                        <th class="py-sm px-xs md:px-md font-medium whitespace-nowrap">Archivo</th>
+                                        <th class="py-sm px-xs md:px-md font-medium whitespace-nowrap">Similitud</th>
+                                        <th class="py-sm px-xs md:px-md font-medium whitespace-nowrap">Distancia</th>
+                                        <th class="py-sm px-xs md:px-md font-medium text-center whitespace-nowrap">
+                                            Resultado</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="detailed-results-body"
+                                    class="font-body-md text-text-high divide-y divide-outline-variant/30">
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     </main>
