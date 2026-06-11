@@ -165,15 +165,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         const distColor = res.aceptado ? 'text-text-high' : 'text-status-error font-semibold';
 
                         tr.innerHTML = `
-                            <td class="py-sm px-md">
-                                <div class="flex items-center gap-sm">
-                                    ${objectUrl ? `<img src="${objectUrl}" class="w-10 h-10 object-cover rounded shadow-sm border border-outline-variant" />` : ''}
-                                    <span class="truncate max-w-[150px] text-sm text-text-high" title="${res.archivo}">${res.archivo}</span>
+                            <td class="py-sm px-xs md:px-md whitespace-nowrap">
+                                <div class="flex items-center gap-xs md:gap-sm">
+                                    ${objectUrl ? `<img src="${objectUrl}" class="w-8 h-8 md:w-10 md:h-10 object-cover rounded shadow-sm border border-outline-variant shrink-0" />` : ''}
+                                    <span class="truncate max-w-[80px] sm:max-w-[120px] md:max-w-[150px] text-xs md:text-sm text-text-high" title="${res.archivo}">${res.archivo}</span>
                                 </div>
                             </td>
-                            <td class="py-sm px-md font-mono text-sm">${confStr}</td>
-                            <td class="py-sm px-md font-mono text-sm ${distColor}">${distStr}</td>
-                            <td class="py-sm px-md text-center">${badgeHtml}</td>
+                            <td class="py-sm px-xs md:px-md font-mono text-xs md:text-sm whitespace-nowrap">${confStr}</td>
+                            <td class="py-sm px-xs md:px-md font-mono text-xs md:text-sm whitespace-nowrap ${distColor}">${distStr}</td>
+                            <td class="py-sm px-xs md:px-md text-center whitespace-nowrap">${badgeHtml}</td>
                         `;
                         detailedResultsBody.appendChild(tr);
                     });
