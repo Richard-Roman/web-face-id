@@ -1,7 +1,7 @@
 // api.js - Cliente centralizado para FastAPI
 // Todas las llamadas apuntan a /api, que será proxied por Vite a 34.41.144.88:8089
 
-const BASE_URL = 'http://34.41.144.88:8089'; // O podemos usar '' si dependemos 100% del proxy de vite y servimos desde la misma URL en dev
+const BASE_URL = 'https://my-face-id-ip.richard-roman.workers.dev'; // Proxy Cloudflare para HTTPS
 
 /**
  * Verifica si el servidor está online y el modelo cargado
