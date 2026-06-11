@@ -131,7 +131,7 @@
                 <!-- Results Section (Initially obscured/empty state, populated after "run") -->
                 <div class="opacity-50 pointer-events-none transition-opacity duration-500" id="resultsSection">
                     <h2 class="font-headline-sm text-headline-sm text-text-high mb-lg">Resultados de Evaluación</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-lg w-full min-w-0">
                         <!-- Rate Card -->
                         <div class="bento-card flex flex-col items-center justify-center text-center">
                             <span
@@ -185,30 +185,29 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Detailed Results Table -->
-                    <div class="md:col-span-3 bento-card mt-lg hidden" id="detailed-results-card">
-                        <div class="flex items-center gap-xs mb-md border-b border-outline-variant pb-sm">
-                            <span class="material-symbols-outlined text-text-medium">list_alt</span>
-                            <h3 class="font-title-lg text-text-high">Detalle por Imagen</h3>
-                        </div>
-                        <div class="overflow-x-auto w-full">
-                            <table class="w-full text-left border-collapse min-w-[600px]">
-                                <thead>
-                                    <tr
-                                        class="font-label-md text-text-medium uppercase tracking-wider border-b border-outline-variant/50">
-                                        <th class="py-sm px-xs md:px-md font-medium whitespace-nowrap">Archivo</th>
-                                        <th class="py-sm px-xs md:px-md font-medium whitespace-nowrap">Similitud</th>
-                                        <th class="py-sm px-xs md:px-md font-medium whitespace-nowrap">Distancia</th>
-                                        <th class="py-sm px-xs md:px-md font-medium text-center whitespace-nowrap">Resultado</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="detailed-results-body"
-                                    class="font-body-md text-text-high divide-y divide-outline-variant/30">
-                                </tbody>
-                            </table>
+                        <!-- Detailed Results Table -->
+                        <div class="col-span-1 md:col-span-3 bg-surface-deep border border-white/5 rounded-[10px] hidden min-w-0" id="detailed-results-card">
+                            <div class="flex items-center gap-xs p-md md:p-lg border-b border-outline-variant pb-sm">
+                                <span class="material-symbols-outlined text-text-medium">list_alt</span>
+                                <h3 class="font-title-lg text-text-high">Detalle por Imagen</h3>
+                            </div>
+                            <div class="overflow-x-auto w-full">
+                                <table class="w-full text-left border-collapse min-w-[600px]">
+                                    <thead>
+                                        <tr class="font-label-md text-text-medium uppercase tracking-wider border-b border-outline-variant/50">
+                                            <th class="py-sm px-xs md:px-md font-medium whitespace-nowrap">Archivo</th>
+                                            <th class="py-sm px-xs md:px-md font-medium whitespace-nowrap">Similitud</th>
+                                            <th class="py-sm px-xs md:px-md font-medium whitespace-nowrap">Distancia</th>
+                                            <th class="py-sm px-xs md:px-md font-medium text-center whitespace-nowrap">Resultado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="detailed-results-body"
+                                        class="font-body-md text-text-high divide-y divide-outline-variant/30">
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
     </main>

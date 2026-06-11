@@ -52,7 +52,7 @@
     @apply -translate-y-[2px];
   }
   .bento-card {
-    @apply bg-surface-deep border border-white/5 rounded-[10px] p-[32px] transition-all duration-300;
+    @apply bg-surface-deep border border-white/5 rounded-[10px] p-md md:p-[32px] transition-all duration-300 min-w-0;
   }
   .bento-card:hover {
     @apply -translate-y-[8px] border-white/10;
